@@ -3,80 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>에델가르트 연대기 - 캐릭터 도감</title>
+    <title>대공가에 입양됨</title>
     <style>
-        :root { --gold: #d4af37; --dark: #121212; --card: #1e1e1e; }
+        :root { --gold: #d4af37; --dark: #121212; --card: #1e1e1e; --accent: #2a2a2a; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
         body { background: var(--dark); color: #fff; line-height: 1.6; }
-        header { text-align: center; padding: 60px 20px; border-bottom: 1px solid #333; }
-        header h1 { font-size: 2.5rem; color: var(--gold); letter-spacing: 5px; margin-bottom: 10px; }
         
-        .filter-container { display: flex; justify-content: center; gap: 10px; margin: 30px 0; flex-wrap: wrap; }
+        header { text-align: center; padding: 60px 20px 30px; }
+        header h1 { font-size: 2.5rem; color: var(--gold); letter-spacing: 5px; margin-bottom: 10px; }
+
+        /* --- 세계관 섹션 스타일 --- */
+        .worldview-container { 
+            max-width: 1400px; 
+            margin: 0 auto 50px; 
+            padding: 0 20px;
+        }
+        
+        .world-content {
+            background: var(--card);
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .world-map { 
+            flex: 1; 
+            min-width: 300px; 
+            max-width: 600px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .world-map img { width: 100%; height: auto; display: block; }
+
+        .world-text { 
+            flex: 1.5; 
+            padding: 40px; 
+            min-width: 300px;
+            border-left: 1px solid #333;
+        }
+
+        .section-title { color: var(--gold); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; display: inline-block; }
+        
+        .curse-box { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px dashed #555; }
+        .curse-box li { font-size: 0.9rem; color: #ccc; margin-left: 20px; margin-bottom: 5px; }
+
+        .region-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .region-item { background: var(--accent); padding: 15px; border-radius: 10px; border: 1px solid #444; }
+        .region-name { color: var(--gold); font-weight: bold; margin-bottom: 5px; display: block; }
+        .region-desc { font-size: 0.85rem; color: #aaa; line-height: 1.4; }
+
+        /* --- 기존 캐릭터 그리드 스타일 --- */
+        .filter-container { display: flex; justify-content: center; gap: 10px; margin: 50px 0 30px; flex-wrap: wrap; }
         .filter-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 8px 16px; cursor: pointer; border-radius: 5px; transition: 0.3s; }
         .filter-btn.active, .filter-btn:hover { background: var(--gold); color: #000; }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 100px; }
         .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         
-        /* --- 뒤집기 연출 추가 --- */
-        .char-card { 
-            background: transparent; 
-            perspective: 1000px; 
-            cursor: pointer;
-            height: 650px; /* 카드 높이 고정 */
-        }
+        .char-card { background: transparent; perspective: 1000px; cursor: pointer; height: 600px; }
+        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .char-card.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; background: var(--card); border-radius: 20px; border: 1px solid #333; overflow: hidden; }
+        .card-back { transform: rotateY(180deg); border-color: var(--gold); }
         
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .char-card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            background: var(--card);
-            border-radius: 20px;
-            border: 1px solid #333;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            border-color: var(--gold);
-        }
-        /* ----------------------- */
-        
-        .img-container { width: 100%; height: 400px; background: #252525; flex-shrink: 0; }
+        .img-container { width: 100%; height: 380px; background: #252525; }
         .char-img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .faction { color: var(--gold); font-size: 0.8rem; font-weight: bold; }
-        .name { font-size: 1.4rem; margin: 8px 0; font-weight: 800; }
-        .traits { color: #888; font-size: 0.85rem; margin-bottom: 15px; min-height: 40px; }
-        
-        .status-window { background: #000; border-radius: 12px; padding: 15px; border: 1px solid #444; font-family: monospace; margin-top: auto; }
-        .status-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 8px; }
-        .quote { color: #aaa; font-style: italic; font-size: 0.85rem; margin-top: 10px; border-top: 1px solid #333; padding-top: 10px; line-height: 1.4; }
+        .info { padding: 20px; }
+        .faction { color: var(--gold); font-size: 0.75rem; font-weight: bold; }
+        .name { font-size: 1.3rem; margin: 5px 0; font-weight: 800; }
+        .traits { color: #888; font-size: 0.8rem; margin-bottom: 10px; }
+        .status-window { background: #000; border-radius: 12px; padding: 15px; border: 1px solid #444; font-family: monospace; }
+        .status-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
+        .quote { color: #aaa; font-style: italic; font-size: 0.8rem; margin-top: 10px; border-top: 1px solid #333; padding-top: 10px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>ARCHIVE: EDELGARD</h1>
-    <p style="color: #666;">카드를 클릭하면 인물의 진면목이 드러납니다.</p>
 </header>
+
+<div class="worldview-container">
+    <div class="world-content">
+        <div class="world-map">
+            <img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/5d74dd3f-64c9-434d-9a08-3332ed71cdd1.png" alt="에델가르트 대륙 지도">
+        </div>
+        <div class="world-text">
+            <h2 class="section-title">용의 저주 (Dragon's Curse)</h2>
+            <div class="curse-box">
+                <ul>
+                    <li><strong>발발:</strong> 120년 전 광룡의 '용의 안개'가 대륙 고착화</li>
+                    <li><strong>오염:</strong> 안개가 고인 곳은 생명체를 마물화하며 신체를 결정화함</li>
+                    <li><strong>대가:</strong> 과도한 마력 사용 시 체내 안개 침식 가속 (결정화 위험)</li>
+                    <li><strong>방패:</strong> 발렌티노 대공가가 안개 본원지를 최전방에서 봉쇄 중</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">지역별 상세</h2>
+            <div class="region-grid">
+                <div class="region-item">
+                    <span class="region-name">북부 | 발렌티노가</span>
+                    <p class="region-desc">눈과 숲, 마물 출몰. 마검사와 기사단이 상주하는 대륙의 방패.</p>
+                </div>
+                <div class="region-item">
+                    <span class="region-name">서부 | 테네브 상단</span>
+                    <p class="region-desc">교역로와 항구. 흑마법과 암시장 정보가 거래되는 온화한 바람의 땅.</p>
+                </div>
+                <div class="region-item">
+                    <span class="region-name">동부 | 아르카디아 성국</span>
+                    <p class="region-desc">성력 독점과 정화. 엄격한 규율과 감시가 흐르는 비옥한 농지.</p>
+                </div>
+                <div class="region-item">
+                    <span class="region-name">중앙 | 에델가르트 황가</span>
+                    <p class="region-desc">권력과 음모의 중심지. 화려한 궁전과 귀족 연합의 외교 무대.</p>
+                </div>
+                <div class="region-item">
+                    <span class="region-name">남부 | 아스테리아 마탑</span>
+                    <p class="region-desc">저주 중화와 마법 연구. 학문적 분위기의 중립적인 마탑 지구.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="filter-container">
@@ -88,273 +141,277 @@
         <button class="filter-btn" onclick="filterChar('상단')">테네브 상단</button>
     </div>
 
-    <div class="char-grid" id="charGrid">
-        
-        <div class="char-card" data-faction="제국" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/9a8fd792-1de3-4c7f-a60a-4c206fc7b457.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">제국 에델가르트 | 황제</span>
-                        <h2 class="name">레오니드 제르 에델가르트</h2>
-                        <p class="traits">#35세 #예민 #불면증 #용의힘</p>
-                    </div>
+<header>
+    <h1>Character Profile</h1>
+    <p style="color: #666;">카드를 클릭하면 인물의 어릴 때 모습이 나옵니다.</p>
+</header>
+    
+<div class="char-grid" id="charGrid">
+    
+    <div class="char-card" data-faction="제국" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/9a8fd792-1de3-4c7f-a60a-4c206fc7b457.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">제국 에델가르트 | 황제</span>
+                    <h2 class="name">레오니드 제르 에델가르트</h2>
+                    <p class="traits">#35세 #예민 #불면증 #용의힘</p>
                 </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/3ee109d8-9aee-461d-8c92-fce843ea04b8.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>💤 피로</span></div>
-                            <p class="quote">💭 "또 잠이 오질 않는군. 거기 너, 내 곁에서 이야기나 떠들어봐."</p>
-                        </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/3ee109d8-9aee-461d-8c92-fce843ea04b8.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>💤 피로</span></div>
+                        <p class="quote">💭 "또 잠이 오질 않는군. 거기 너, 내 곁에서 이야기나 떠들어봐."</p>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="char-card" data-faction="제국" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/7abd662c-b256-41a6-9da7-23aa756e60a6.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">제국 에델가르트 | 기사단장</span>
-                        <h2 class="name">헬가 폰 롬바르디</h2>
-                        <p class="traits">#32세 #호쾌 #걸크러쉬 #대검</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/43bd17ec-bbad-409d-8bd1-0b0f62d0e2af.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "뒤처지지 마라! 이 검의 무게를 견디지 못하면 자격이 없다."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="제국" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/90ee0297-3222-4a8c-a8cc-ed88fcea8d29.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">제국 에델가르트 | 공녀</span>
-                        <h2 class="name">베아트리스 드 로웰</h2>
-                        <p class="traits">#20세 #츤데레 #길치 #보조마법</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/59febe60-c906-400a-9a03-23d8fff4896d.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "딱히 당신이 걱정돼서 따라온 건 아니니까 착각하지 마세요!"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/b5a007df-a893-4b87-8fe1-3ce445373423.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 대공</span>
-                        <h2 class="name">알릭스 폰 발렌티노</h2>
-                        <p class="traits">#30세 #차가움 #얼음마법 #술에약함</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/a2c99c3f-16b2-40fd-887f-08d2df388bff.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>❄️ 냉기</span></div>
-                            <p class="quote">💭 "북부의 눈은 자비가 없지. 내 시야에서 벗어나지 마."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/3c9b4dfc-09c0-484a-9303-8c7bdb02e4ff.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 차남</span>
-                        <h2 class="name">에이든 폰 발렌티노</h2>
-                        <p class="traits">#25세 #느긋 #회피형 #저주중화</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/38145852-8b91-474d-8806-0aa9ab106f61.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "인생 너무 빡빡하게 살지 말자고. 그냥 흘러가는 대로 두면 되잖아?"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/17369ec0-d2b6-4803-9d21-c308d1d2cd96.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 기사</span>
-                        <h2 class="name">이안</h2>
-                        <p class="traits">#26세 #충성 #밝음 #신체강화</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/d819dddc-72cb-49f2-9c1f-9d07fdb3e974.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "무엇이든 시켜만 주십시오! 당신의 곁은 제가 지키겠습니다!"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/91cc245c-bbb4-4701-bbaf-b5016af5d366.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 메이드</span>
-                        <h2 class="name">마리</h2>
-                        <p class="traits">#25세 #밝음 #능청 #활기</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ca3e6d6-6c65-49c8-a798-4486f977e3ea.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "오늘 기분은 좀 어떠신가요? 맛있는 차를 준비해 드릴게요!"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="성국" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/182a9bc8-e1a9-4160-9f1c-507442e71efc.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">아르카디아 성국 | 성녀</span>
-                        <h2 class="name">세레나 실베스타</h2>
-                        <p class="traits">#24세 #이중인격 #인간혐오 #정화</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6c1516ea-a45c-4159-989f-2ce74090f9a9.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>✨ 성력</span></div>
-                            <p class="quote">💭 "신의 축복이 함께하기를... (아, 정말 구역질 나는군요.)"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="성국" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/c020a731-8103-4308-b3d3-e6864f8f3ac9.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">아르카디아 성국 | 성기사</span>
-                        <h2 class="name">카시안 데 베르니에</h2>
-                        <p class="traits">#31세 #금욕 #M성향 #방패</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/0801b96f-8b2b-4177-8629-47897dccdc0b.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "고통 또한 신의 안배... 제게 더 큰 시련을 주셔도 좋습니다."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/8403fe41-a3a4-4a80-b2e0-ac490326f914.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">아스테리아 마탑 | 마탑주</span>
-                        <h2 class="name">카이로스 에반스</h2>
-                        <p class="traits">#33세 #방탕함 #바람둥이 #계산적</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/50d0b3ec-3c14-4a7d-a575-5ea05c23f869.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "인생은 즐거워야지, 안 그래? 나랑 재미있는 실험이나 해볼래?"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/009fa63b-eead-4251-8f84-e764bf4a4d33.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">아스테리아 마탑 | 암살자</span>
-                        <h2 class="name">녹스</h2>
-                        <p class="traits">#20세 #무감정 #편식 #은신</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/a797d3d1-c7be-481b-a825-99dfcde26fcb.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "명령인가. 알았다. 죽이면 되는 거지?"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="char-card" data-faction="상단" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ed7bb70-d96b-4bfe-a5bb-b47f2d383d08.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">테네브 상단 | 상단주</span>
-                        <h2 class="name">카르넬 라 브라스크</h2>
-                        <p class="traits">#40세 #폭력적카리스마 #괴력</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/4b5aefa5-fa1e-4655-a363-4b47a39ead59.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
-                            <p class="quote">💭 "세상은 결국 돈과 힘이다. 네 가치를 증명해 봐라."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <div class="char-card" data-faction="제국" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/7abd662c-b256-41a6-9da7-23aa756e60a6.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">제국 에델가르트 | 기사단장</span>
+                    <h2 class="name">헬가 폰 롬바르디</h2>
+                    <p class="traits">#32세 #호쾌 #걸크러쉬 #대검</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/43bd17ec-bbad-409d-8bd1-0b0f62d0e2af.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "뒤처지지 마라! 이 검의 무게를 견디지 못하면 자격이 없다."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="제국" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/90ee0297-3222-4a8c-a8cc-ed88fcea8d29.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">제국 에델가르트 | 공녀</span>
+                    <h2 class="name">베아트리스 드 로웰</h2>
+                    <p class="traits">#20세 #츤데레 #길치 #보조마법</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/59febe60-c906-400a-9a03-23d8fff4896d.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "딱히 당신이 걱정돼서 따라온 건 아니니까 착각하지 마세요!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/b5a007df-a893-4b87-8fe1-3ce445373423.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">발렌티노가 | 대공</span>
+                    <h2 class="name">알릭스 폰 발렌티노</h2>
+                    <p class="traits">#30세 #차가움 #얼음마법 #술에약함</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/a2c99c3f-16b2-40fd-887f-08d2df388bff.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>❄️ 냉기</span></div>
+                        <p class="quote">💭 "북부의 눈은 자비가 없지. 내 시야에서 벗어나지 마."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/3c9b4dfc-09c0-484a-9303-8c7bdb02e4ff.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">발렌티노가 | 차남</span>
+                    <h2 class="name">에이든 폰 발렌티노</h2>
+                    <p class="traits">#25세 #느긋 #회피형 #저주중화</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/38145852-8b91-474d-8806-0aa9ab106f61.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "인생 너무 빡빡하게 살지 말자고. 그냥 흘러가는 대로 두면 되잖아?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/17369ec0-d2b6-4803-9d21-c308d1d2cd96.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">발렌티노가 | 기사</span>
+                    <h2 class="name">이안</h2>
+                    <p class="traits">#26세 #충성 #밝음 #신체강화</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/d819dddc-72cb-49f2-9c1f-9d07fdb3e974.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "무엇이든 시켜만 주십시오! 당신의 곁은 제가 지키겠습니다!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/91cc245c-bbb4-4701-bbaf-b5016af5d366.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">발렌티노가 | 메이드</span>
+                    <h2 class="name">마리</h2>
+                    <p class="traits">#25세 #밝음 #능청 #활기</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ca3e6d6-6c65-49c8-a798-4486f977e3ea.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "오늘 기분은 좀 어떠신가요? 맛있는 차를 준비해 드릴게요!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="성국" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/182a9bc8-e1a9-4160-9f1c-507442e71efc.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">아르카디아 성국 | 성녀</span>
+                    <h2 class="name">세레나 실베스타</h2>
+                    <p class="traits">#24세 #이중인격 #인간혐오 #정화</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6c1516ea-a45c-4159-989f-2ce74090f9a9.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>✨ 성력</span></div>
+                        <p class="quote">💭 "신의 축복이 함께하기를... (아, 정말 구역질 나는군요.)"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="성국" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/c020a731-8103-4308-b3d3-e6864f8f3ac9.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">아르카디아 성국 | 성기사</span>
+                    <h2 class="name">카시안 데 베르니에</h2>
+                    <p class="traits">#31세 #금욕 #M성향 #방패</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/0801b96f-8b2b-4177-8629-47897dccdc0b.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "고통 또한 신의 안배... 제게 더 큰 시련을 주셔도 좋습니다."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/8403fe41-a3a4-4a80-b2e0-ac490326f914.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">아스테리아 마탑 | 마탑주</span>
+                    <h2 class="name">카이로스 에반스</h2>
+                    <p class="traits">#33세 #방탕함 #바람둥이 #계산적</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/50d0b3ec-3c14-4a7d-a575-5ea05c23f869.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "인생은 즐거워야지, 안 그래? 나랑 재미있는 실험이나 해볼래?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/009fa63b-eead-4251-8f84-e764bf4a4d33.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">아스테리아 마탑 | 암살자</span>
+                    <h2 class="name">녹스</h2>
+                    <p class="traits">#20세 #무감정 #편식 #은신</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/a797d3d1-c7be-481b-a825-99dfcde26fcb.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "명령인가. 알았다. 죽이면 되는 거지?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="상단" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ed7bb70-d96b-4bfe-a5bb-b47f2d383d08.png" class="char-img"></div>
+                <div class="info">
+                    <span class="faction">테네브 상단 | 상단주</span>
+                    <h2 class="name">카르넬 라 브라스크</h2>
+                    <p class="traits">#40세 #폭력적카리스마 #괴력</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/4b5aefa5-fa1e-4655-a363-4b47a39ead59.png" class="char-img"></div>
+                <div class="info">
+                    <div class="status-window">
+                        <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>-</span></div>
+                        <p class="quote">💭 "세상은 결국 돈과 힘이다. 네 가치를 증명해 봐라."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
