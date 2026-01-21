@@ -154,33 +154,37 @@
 </header>
 
 <div class="worldview-container">
-    <div class="world-content">
-        <div class="world-map">
-            <img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/5d74dd3f-64c9-434d-9a08-3332ed71cdd1.png" alt="에델가르트 대륙 지도">
-        </div>
-        <div class="world-text">
-            <h2 class="section-title">용의 저주</h2>
-            <div class="prologue-box">
-                <p class="intro-text">120년 전, 광룡의 죽음이 대륙을 오염시켰다.</p>
-                <p class="main-text">‘용의 안개’는 생명의 질서를 파괴했고, 인간은 마물이 되었으며 문명은 썩어 들어갔다.</p>
-                <p class="highlight-text">마력을 쓸수록 침식은 깊어졌고,<br>살아남기 위해선 누군가의 보호가 필요해졌다.</p>
-                <div class="faction-summary">
-                    <span>성국은 성력을 독점했고,</span>
-                    <span>상단은 채무로 국가를 삼켰으며,</span>
-                    <span>마탑은 금단의 진리를 향해 문을 닫았다.</span>
-                </div>
-                <p>북부는 오늘도 안개 앞에서 버티고 있다.</p>
-                <div class="conclusion-box">
-                    <p>질서는 생존을 담보로 유지된다.</p>
-                    <p class="final-call">그리고 지금— <br><span>당신의 선택이, 이 대륙의 균형을 바꾼다.</span></p>
-                </div>
+    <div class="world-map" style="width: 100%; margin-bottom: 30px;">
+        <img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/5d74dd3f-64c9-434d-9a08-3332ed71cdd1.png" 
+             alt="에델가르트 대륙 지도" 
+             style="width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--gold);">
+    </div>
+
+    <div class="world-text" style="width: 100%;">
+        <h2 class="section-title">용의 저주</h2>
+        <div class="prologue-box">
+            <p class="intro-text">120년 전, 광룡의 죽음이 대륙을 오염시켰다.</p>
+            <p class="main-text">‘용의 안개’는 생명의 질서를 파괴했고, 인간은 마물이 되었으며 문명은 썩어 들어갔다.</p>
+            <p class="highlight-text">마력을 쓸수록 침식은 깊어졌고,<br>살아남기 위해선 누군가의 보호가 필요해졌다.</p>
+            
+            <div class="faction-summary" style="margin: 20px 0; padding: 15px; border-left: 3px solid var(--gold); background: rgba(212,175,55,0.05);">
+                <span style="display: block; margin-bottom: 5px;">• 성국은 성력을 독점했고,</span>
+                <span style="display: block; margin-bottom: 5px;">• 상단은 채무로 국가를 삼켰으며,</span>
+                <span style="display: block; margin-bottom: 5px;">• 마탑은 금단의 진리를 향해 문을 닫았다.</span>
+            </div>
+            
+            <p>북부는 오늘도 안개 앞에서 버티고 있다.</p>
+            
+            <div class="conclusion-box">
+                <p>질서는 생존을 담보로 유지된다.</p>
+                <p class="final-call">그리고 지금— <br><span style="color: var(--gold); font-weight: bold;">당신의 선택이, 이 대륙의 균형을 바꾼다.</span></p>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title">지역별 상세</h2>
+    <h2 class="section-title" style="margin-top: 50px;">지역별 상세</h2>
     <div class="region-grid">
-        <div class="region-item" data-symbol="N" style="--region-color: #4da6ff;">
+        <div class="region-item" data-symbol="N" style="--region-color: #4da6ff; margin-bottom: 20px;">
             <span class="region-name">북부 | 발렌티노 대공가</span>
             <p class="region-desc">눈과 숲, 마물 출몰. 마검사와 기사단이 상주하는 대륙의 방패.</p>
             <div class="region-lore">
@@ -189,7 +193,7 @@
             </div>
         </div>
 
-        <div class="region-item" data-symbol="E" style="--region-color: #e0b0ff;">
+        <div class="region-item" data-symbol="E" style="--region-color: #e0b0ff; margin-bottom: 20px;">
             <span class="region-name">동부 | 아르카디아 성국</span>
             <p class="region-desc">성력 독점과 정화. 엄격한 규율과 감시가 흐르는 비옥한 농지.</p>
             <div class="region-lore">
@@ -198,7 +202,7 @@
             </div>
         </div>
 
-        <div class="region-item" data-symbol="W" style="--region-color: #cd7f32;">
+        <div class="region-item" data-symbol="W" style="--region-color: #cd7f32; margin-bottom: 20px;">
             <span class="region-name">서부 | 테네브 상단</span>
             <p class="region-desc">교역로와 항구. 흑마법과 암시장 정보가 거래되는 온화한 바람의 땅.</p>
             <div class="region-lore">
@@ -207,7 +211,7 @@
             </div>
         </div>
 
-        <div class="region-item" data-symbol="S" style="--region-color: #00fa9a;">
+        <div class="region-item" data-symbol="S" style="--region-color: #00fa9a; margin-bottom: 20px;">
             <span class="region-name">남부 | 아스테리아 마탑</span>
             <p class="region-desc">금단의 마법 연구와 진리 탐구. 외부인의 출입을 거부하는 높은 탑.</p>
             <div class="region-lore">
@@ -216,7 +220,7 @@
             </div>
         </div>
 
-        <div class="region-item" data-symbol="C" style="--region-color: #ff4d4d;">
+        <div class="region-item" data-symbol="C" style="--region-color: #ff4d4d; margin-bottom: 20px;">
             <span class="region-name">중앙 | 에델가르트 황가</span>
             <p class="region-desc">권력과 음모의 중심지. 화려한 궁전과 귀족 연합의 외교 무대.</p>
             <div class="region-lore">
