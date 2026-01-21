@@ -186,6 +186,23 @@
     .faction { color: var(--point) !important; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
     .traits { color: #fff; opacity: 0.9; }
     .status-window { border-left: 3px solid var(--point); }
+
+            .desc-summary {
+        font-size: 0.8rem;
+        color: #bbb;
+        margin-top: 8px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 세 줄까지만 표시 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .traits {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: 0.85rem;
+        margin-top: 4px;
+    }
     </style>
 </head>
 <body>
@@ -530,25 +547,6 @@
     </div>
 
 </div>
-
-<style>
-    .desc-summary {
-        font-size: 0.8rem;
-        color: #bbb;
-        margin-top: 8px;
-        line-height: 1.4;
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* 세 줄까지만 표시 */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    .traits {
-        color: var(--gold);
-        font-weight: bold;
-        font-size: 0.85rem;
-        margin-top: 4px;
-    }
-</style>
 
 <script>
     function filterChar(faction) {
