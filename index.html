@@ -157,6 +157,61 @@
         .status-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
         .quote { font-style: italic; font-size: 0.85rem; color: #eee; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
 
+/* 1. 반짝이는 테두리 애니메이션 (색상을 변수화하여 세력별 대응 가능) */
+@keyframes card-glow {
+    0% { 
+        box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 20px var(--point, rgba(212, 175, 55, 0.5));
+        border-color: var(--point, rgba(212, 175, 55, 0.8));
+    }
+    100% { 
+        box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+}
+
+/* 2. 둥둥 떠다니는 움직임 (너무 크지 않게 6px 정도로 조정) */
+@keyframes floating {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+/* 3. 카드 적용 */
+.char-card {
+    perspective: 1000px;
+    height: 620px;
+    cursor: pointer;
+    /* 둥둥 뜨는 효과 추가 */
+    animation: floating 4s ease-in-out infinite;
+}
+
+.card-front {
+    /* 카드 앞면에 반짝이는 효과 추가 */
+    animation: card-glow 3s ease-in-out infinite;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 기본 테두리 무시 방지 */
+    transition: transform 0.3s ease;
+}
+
+/* 마우스를 올렸을 때(Hover) 설정 */
+.char-card:hover {
+    animation-play-state: paused; /* 호버 시 움직임 멈춤 (클릭하기 편하게) */
+}
+
+.char-card:hover .card-front {
+    border-color: var(--point) !important;
+    box-shadow: 0 0 30px var(--point) !important;
+    transform: scale(1.02); /* 살짝 커지는 효과 추가 */
+}
+
+/* 뒤집힌 상태(flipped)일 때는 뜨는 애니메이션 제외 (선택사항) */
+.char-card.flipped {
+    animation: none;
+    transform: translateY(-8px); /* 뒤집혔을 땐 고정 */
+}
         /* 세력별 포인트 컬러 */
         .char-card[data-faction="제국"] { --point: #ff4d4d; }
         .char-card[data-faction="발렌티노"] { --point: #4da6ff; }
