@@ -16,26 +16,43 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
 
-        body { 
-            background: 
-                radial-gradient(circle at 20% 30%, #1a1a2e 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, #16213e 0%, transparent 40%),
-                linear-gradient(135deg, #050505 0%, #121212 100%);
-            background-attachment: fixed;
-            color: #fff; 
-            line-height: 1.6; 
-            min-height: 100vh;
-        }
+    body { 
+        /* 1. 기본 배경색 */
+        background-color: #050505;
+        
+        /* 2. CSS로 만드는 미세한 격자 문양 패턴 */
+        background-image: 
+            /* 은은한 금색 빛의 마법진 격자 느낌 */
+            linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+            /* 중앙에서 퍼지는 신비로운 조명 효과 */
+            radial-gradient(circle at 50% 50%, rgba(20, 20, 35, 0.8) 0%, #050505 100%);
+        
+        background-size: 50px 50px, 50px 50px, 100% 100%;
+        background-attachment: fixed;
+        color: #fff; 
+        line-height: 1.6; 
+        min-height: 100vh;
+    }
 
-        header { text-align: center; padding: 80px 20px 40px; }
-        header h1 { 
-            font-size: 3rem; 
-            color: var(--gold); 
-            letter-spacing: 12px; 
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-        }
-
+    /* 배경에 큰 장식용 원형 문양 추가 (선택 사항) */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 800px;
+        height: 800px;
+        transform: translate(-50%, -50%);
+        background: repeating-conic-gradient(
+            from 0deg,
+            transparent 0deg 30deg,
+            rgba(212, 175, 55, 0.01) 31deg 32deg
+        );
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: -1;
+    }
         /* --- 세계관 섹션 --- */
         .worldview-container { 
             max-width: 1400px; 
@@ -441,119 +458,143 @@
     </div>
 </div>
 
-<div class="char-grid" id="charGrid">
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/38145852-8b91-474d-8806-0aa9ab106f61.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 차남</span>
-                        <h2 class="name">에이든 폰 발렌티노</h2>
-                        <p class="traits">182cm · 70kg · 25세</p>
-                        <p class="desc-summary">차가운 북부 가문에서 유일하게 느긋한 공기를 풍기는 인물. 복잡한 정치와 싸움보다는 흘러가는 대로 사는 삶을 지향하는 자유로운 영혼.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/38145852-8b91-474d-8806-0aa9ab106f61.png" class="char-img"></div>
-                    <div class="info"><div class="status-window"><p class="quote">💭 "인생 너무 빡빡하게 살지 말자고."</p></div></div>
+<div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/38145852-8b91-474d-8806-0aa9ab106f61.png" class="char-img"></div>
+            <div class="info">
+                <span class="faction">발렌티노가 | 차남</span>
+                <h2 class="name">에이든 폰 발렌티노</h2>
+                <p class="traits">182cm · 70kg · 25세</p>
+                <p class="desc-summary">차가운 북부 가문에서 유일하게 느긋한 공기를 풍기는 인물. 복잡한 정치보다는 자유로운 삶을 지향한다.</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/38145852-8b91-474d-8806-0aa9ab106f61.png" class="char-img"></div>
+            <div class="info">
+                <div class="status-window">
+                    <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>🍃 여유</span></div>
+                    <p class="quote">💭 "인생 너무 빡빡하게 살지 말자고. 차나 한 잔 어때?"</p>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/17369ec0-d2b6-4803-9d21-c308d1d2cd96.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 수호 기사</span>
-                        <h2 class="name">이안 (Ian)</h2>
-                        <p class="traits">185cm · 78kg · 26세</p>
-                        <p class="desc-summary">충성심 하나로 북부의 혹한을 견뎌내는 열혈 기사. 밝고 긍정적인 에너지로 주변을 환하게 밝히며, 주군을 위해서라면 목숨도 아끼지 않는다.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/d819dddc-72cb-49f2-9c1f-9d07fdb3e974.png" class="char-img"></div>
-                    <div class="info"><div class="status-window"><p class="quote">💭 "당신의 곁은 제가 지키겠습니다!"</p></div></div>
+<div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/17369ec0-d2b6-4803-9d21-c308d1d2cd96.png" class="char-img"></div>
+            <div class="info">
+                <span class="faction">발렌티노가 | 수호 기사</span>
+                <h2 class="name">이안 (Ian)</h2>
+                <p class="traits">185cm · 78kg · 26세</p>
+                <p class="desc-summary">충성심 하나로 북부의 혹한을 견뎌내는 열혈 기사. 밝고 긍정적인 에너지로 주변을 환하게 밝힌다.</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/d819dddc-72cb-49f2-9c1f-9d07fdb3e974.png" class="char-img"></div>
+            <div class="info">
+                <div class="status-window">
+                    <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>🔥 열정</span></div>
+                    <p class="quote">💭 "당신의 곁은 제가 지키겠습니다! 어떤 위협이 와도 말이죠."</p>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/91cc245c-bbb4-4701-bbaf-b5016af5d366.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">발렌티노가 | 전담 메이드</span>
-                        <h2 class="name">마리 (Mari)</h2>
-                        <p class="traits">163cm · 48kg · 25세</p>
-                        <p class="desc-summary">살벌한 대공저에서 유일하게 능청스러운 농담을 던질 수 있는 메이드. 뛰어난 정보 수집 능력과 눈치를 겸비한 유능한 살림꾼.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ca3e6d6-6c65-49c8-a798-4486f977e3ea.png" class="char-img"></div>
-                    <div class="info"><div class="status-window"><p class="quote">💭 "맛있는 차를 준비해 드릴게요!"</p></div></div>
+<div class="char-card" data-faction="발렌티노" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/91cc245c-bbb4-4701-bbaf-b5016af5d366.png" class="char-img"></div>
+            <div class="info">
+                <span class="faction">발렌티노가 | 전담 메이드</span>
+                <h2 class="name">마리 (Mari)</h2>
+                <p class="traits">163cm · 48kg · 25세</p>
+                <p class="desc-summary">살벌한 대공저의 유능한 살림꾼. 뛰어난 정보 수집 능력과 눈치를 겸비한 대공가의 소식통.</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ca3e6d6-6c65-49c8-a798-4486f977e3ea.png" class="char-img"></div>
+            <div class="info">
+                <div class="status-window">
+                    <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>✨ 능청</span></div>
+                    <p class="quote">💭 "대공저의 비밀이 궁금하신가요? 그럼 맛있는 차부터 드셔보세요."</p>
                 </div>
             </div>
         </div>
-    
-        <div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/8403fe41-a3a4-4a80-b2e0-ac490326f914.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">아스테리아 마탑 | 마탑주</span>
-                        <h2 class="name">카이로스 에반스</h2>
-                        <p class="traits">185cm · 74kg · 33세</p>
-                        <p class="desc-summary">적발의 오드아이 사교계 명사. 방탕한 유흥 이면에 마법사 특유의 서늘한 계산과 집착을 숨기고 있다.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/50d0b3ec-3c14-4a7d-a575-5ea05c23f869.png" class="char-img"></div>
-                    <div class="info">
-                        <div class="status-window">
-                            <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>🍷 유흥</span></div>
-                            <p class="quote">💭 "인생은 즐거워야지, 안 그래? 나랑 재미있는 실험이나 해볼래?"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-            <div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/009fa63b-eead-4251-8f84-e764bf4a4d33.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">아스테리아 마탑 | 암살자</span>
-                        <h2 class="name">녹스 (Nox)</h2>
-                        <p class="traits">172cm · 58kg · 20세</p>
-                        <p class="desc-summary">마탑의 지저분한 일을 처리하는 소리 없는 칼날. 감정이 거세된 듯 무미건조하며, 오직 효율적인 살상만을 위해 움직인다.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/a797d3d1-c7be-481b-a825-99dfcde26fcb.png" class="char-img"></div>
-                    <div class="info"><div class="status-window"><p class="quote">💭 "명령인가. 죽이면 되는 거지?"</p></div></div>
-                </div>
-            </div>
-        </div>
+    </div>
+</div>
 
-        <div class="char-card" data-faction="상단" onclick="this.classList.toggle('flipped')">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ed7bb70-d96b-4bfe-a5bb-b47f2d383d08.png" class="char-img"></div>
-                    <div class="info">
-                        <span class="faction">테네브 상단 | 상단주</span>
-                        <h2 class="name">카르넬 라 브라스크</h2>
-                        <p class="traits">195cm · 105kg · 40세</p>
-                        <p class="desc-summary">거구의 실리주의 지배자. 거래와 정보 위에 폭력을 두며, 공포와 신뢰를 동시에 관리하는 상단의 왕.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/4b5aefa5-fa1e-4655-a363-4b47a39ead59.png" class="char-img"></div>
-                    <div class="info"><div class="status-window"><p class="quote">💭 "세상은 결국 돈과 힘이다."</p></div></div>
+<div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/8403fe41-a3a4-4a80-b2e0-ac490326f914.png" class="char-img"></div>
+            <div class="info">
+                <span class="faction">아스테리아 마탑 | 마탑주</span>
+                <h2 class="name">카이로스 에반스</h2>
+                <p class="traits">185cm · 74kg · 33세</p>
+                <p class="desc-summary">적발의 오드아이 사교계 명사. 방탕한 유흥 이면에 서늘한 계산과 집착을 숨기고 있다.</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/50d0b3ec-3c14-4a7d-a575-5ea05c23f869.png" class="char-img"></div>
+            <div class="info">
+                <div class="status-window">
+                    <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>🍷 유흥</span></div>
+                    <p class="quote">💭 "인생은 즐거워야지, 안 그래? 나랑 재미있는 실험이나 해볼래?"</p>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="char-card" data-faction="마탑" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/009fa63b-eead-4251-8f84-e764bf4a4d33.png" class="char-img"></div>
+            <div class="info">
+                <span class="faction">아스테리아 마탑 | 암살자</span>
+                <h2 class="name">녹스 (Nox)</h2>
+                <p class="traits">172cm · 58kg · 20세</p>
+                <p class="desc-summary">소리 없는 칼날. 감정이 거세된 듯 무미건조하며, 오직 효율적인 살상만을 위해 움직인다.</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/a797d3d1-c7be-481b-a825-99dfcde26fcb.png" class="char-img"></div>
+            <div class="info">
+                <div class="status-window">
+                    <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>🌑 정적</span></div>
+                    <p class="quote">💭 "명령인가. 죽이면 되는 거지? 그게 내 존재 이유니까."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="char-card" data-faction="상단" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <div class="card-front">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/6ed7bb70-d96b-4bfe-a5bb-b47f2d383d08.png" class="char-img"></div>
+            <div class="info">
+                <span class="faction">테네브 상단 | 상단주</span>
+                <h2 class="name">카르넬 라 브라스크</h2>
+                <p class="traits">195cm · 105kg · 40세</p>
+                <p class="desc-summary">거구의 실리주의 지배자. 거래와 정보 위에 폭력을 두며, 공포와 신뢰를 동시에 관리한다.</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <div class="img-container"><img src="https://d394jeh9729epj.cloudfront.net/8DfAkDwViKY-KKKOOUNVOUpV/4b5aefa5-fa1e-4655-a363-4b47a39ead59.png" class="char-img"></div>
+            <div class="info">
+                <div class="status-window">
+                    <div class="status-row"><span>대인관계: 관찰 🤍</span> <span>💰 탐욕</span></div>
+                    <p class="quote">💭 "세상은 결국 돈과 힘이다. 너는 내게 어떤 가치를 증명할 거지?"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     
 <script>
     function filterChar(faction) {
