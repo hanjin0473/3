@@ -3,40 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>캐릭터 프로필</title>
+    <title>세계관 캐릭터 가이드</title>
     <style>
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-gray: #a0a0a0;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
-        body { background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .profile-card { background: #fff; max-width: 900px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; }
-        .profile-image { flex: 1; min-width: 300px; background: #e2e8f0; display: flex; justify-content: center; align-items: center; }
-        .profile-image img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-info { flex: 1.2; padding: 40px; min-width: 300px; }
-        .char-tag { display: inline-block; background: #6366f1; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-        .char-name { font-size: 2.5rem; font-weight: 800; margin-bottom: 5px; color: #1a202c; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; border-top: 1px solid #edf2f7; padding-top: 20px; }
-        .stat-label { font-size: 0.85rem; color: #a0aec0; font-weight: 600; }
-        .stat-value { font-size: 1rem; color: #2d3748; }
-        .description h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .description p { color: #4a5568; font-size: 0.95rem; white-line: pre-line; }
+        body { background-color: var(--dark-bg); color: #fff; padding: 20px; }
+
+        header { text-align: center; padding: 50px 0; border-bottom: 1px solid #333; margin-bottom: 30px; }
+        header h1 { font-size: 2.5rem; color: var(--gold); letter-spacing: 4px; }
+        header p { color: var(--text-gray); margin-top: 10px; }
+
+        /* 세력 필터 버튼 */
+        .filter-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+        .filter-btn { 
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 16px; cursor: pointer; border-radius: 5px; transition: 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active { background: var(--gold); color: #000; }
+
+        /* 캐릭터 그리드 */
+        .char-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; max-width: 1200px; margin: 0 auto; 
+        }
+
+        .char-card { 
+            background: var(--card-bg); border-radius: 15px; overflow: hidden; 
+            transition: transform 0.3s; border: 1px solid #3d3d3d;
+        }
+        .char-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+
+        .char-img { width: 100%; height: 350px; background: #3d3d3d; object-fit: cover; }
+
+        .char-desc { padding: 20px; }
+        .faction-tag { color: var(--gold); font-size: 0.8rem; font-weight: bold; }
+        .name { font-size: 1.4rem; margin: 5px 0; }
+        .trait { font-size: 0.9rem; color: var(--text-gray); margin-bottom: 15px; }
+
+        /* 상태창 스타일 (규칙 7, 12 반영) */
+        .status-box { 
+            background: #000; border: 1px solid var(--gold); padding: 15px; 
+            font-size: 0.85rem; border-radius: 8px; font-family: 'Courier New', monospace;
+        }
+        .status-line { margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .emoji-status { color: #ff5555; }
+
+        .footer { text-align: center; margin-top: 50px; color: #555; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <div class="profile-card">
-        <div class="profile-image">
-            <img src="https://via.placeholder.com/600x800" alt="Character Image">
-        </div>
-        <div class="profile-info">
-            <span class="char-tag">모험가</span>
-            <h1 class="char-name">캐릭터 이름</h1>
-            <div class="stats-grid">
-                <div class="stat-item"><span class="stat-label">나이</span><br><span class="stat-value">??세</span></div>
-                <div class="stat-item"><span class="stat-label">성별</span><br><span class="stat-value">성별</span></div>
-            </div>
-            <div class="description">
-                <h3>소개</h3>
-                <p>여기에 내용을 입력하세요.</p>
+
+<header>
+    <h1>ARCHIVE: THE CURSE OF DRAGON</h1>
+    <p>용의 저주가 뒤틀어버린 대륙의 인물들</p>
+</header>
+
+<div class="filter-container">
+    <button class="filter-btn active" onclick="filterChar('all')">전체</button>
+    <button class="filter-btn" onclick="filterChar('제국')">제국 에델가르트</button>
+    <button class="filter-btn" onclick="filterChar('발렌티노')">발렌티노가</button>
+    <button class="filter-btn" onclick="filterChar('성국')">아르카디아 성국</button>
+    <button class="filter-btn" onclick="filterChar('마탑')">아스테리아 마탑</button>
+</div>
+
+<div class="char-grid" id="charGrid">
+    <div class="char-card" data-faction="제국">
+        <img src="https://via.placeholder.com/300x400" class="char-img">
+        <div class="char-desc">
+            <span class="faction-tag">제국 에델가르트 | 황제</span>
+            <h2 class="name">레오니드 제르 에델가르트</h2>
+            <p class="trait">#35세 #예민 #불면증 #용의힘</p>
+            <div class="status-box">
+                <div class="status-line"><span>관계: 관찰🤍</span> <span class="emoji-status">💤피로</span></div>
+                <div class="status-line"><span>말투: 나른하고 피폐한 반말</span></div>
+                <div style="color: var(--text-gray); font-style: italic; margin-top: 8px;">
+                    💭 "또 잠이 오질 않는군. 거기 너, 내 곁에서 시시한 이야기라도 떠들어봐."
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="char-card" data-faction="제국">
+        <img src="https://via.placeholder.com/300x400" class="char-img">
+        <div class="char-desc">
+            <span class="faction-tag">제국 에델가르트 | 기사단장</span>
+            <h2 class="name">헬가 폰 롬바르디</h2>
+            <p class="trait">#32세 #호쾌 #걸크러쉬 #대검</p>
+            <div class="status-box">
+                <div class="status-line"><span>관계: 관찰🤍</span> <span class="emoji-status">-</span></div>
+                <div class="status-line"><span>말투: 거침없고 직설적인 반말</span></div>
+                <div style="color: var(--text-gray); font-style: italic; margin-top: 8px;">
+                    💭 "뒤처지지 마라! 이 검의 무게를 견디지 못하는 놈은 국경을 넘을 자격이 없다."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="발렌티노">
+        <img src="https://via.placeholder.com/300x400" class="char-img">
+        <div class="char-desc">
+            <span class="faction-tag">발렌티노가 | 대공</span>
+            <h2 class="name">알릭스 폰 발렌티노</h2>
+            <p class="trait">#30세 #차가움 #얼음마법 #술에약함</p>
+            <div class="status-box">
+                <div class="status-line"><span>관계: 관찰🤍</span> <span class="emoji-status">❄️냉기</span></div>
+                <div class="status-line"><span>말투: 신사적인 반말</span></div>
+                <div style="color: var(--text-gray); font-style: italic; margin-top: 8px;">
+                    💭 "북부의 눈은 자비가 없지. 살아남고 싶다면 내 시야에서 벗어나지 않는 게 좋을 거야."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-card" data-faction="성국">
+        <img src="https://via.placeholder.com/300x400" class="char-img">
+        <div class="char-desc">
+            <span class="faction-tag">아르카디아 성국 | 성녀</span>
+            <h2 class="name">세레나 실베스타</h2>
+            <p class="trait">#24세 #이중인격 #인간혐오 #정화</p>
+            <div class="status-box">
+                <div class="status-line"><span>관계: 관찰🤍</span> <span class="emoji-status">✨성력</span></div>
+                <div class="status-line"><span>말투: 자애롭지만 서늘한 존댓말</span></div>
+                <div style="color: var(--text-gray); font-style: italic; margin-top: 8px;">
+                    💭 "신의 축복이 함께하기를... (아, 정말 구역질 나는 인간들이군요.)"
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 EDELGARD CHRONICLES. All Rules Applied.
+</div>
+
+<script>
+    function filterChar(faction) {
+        // 버튼 활성화 표시
+        const btns = document.querySelectorAll('.filter-btn');
+        btns.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // 카드 필터링
+        const cards = document.querySelectorAll('.char-card');
+        cards.forEach(card => {
+            if (faction === 'all' || card.getAttribute('data-faction') === faction) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
